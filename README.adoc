@@ -1,0 +1,69 @@
+= A tiny example Node.js application server, containerized
+:date: 2022-12-08
+:modified: 2022-12-08 19:25
+Duncan Hutty <dhutty@allgoodbits.org>
+:url-home: https://github.com/dhutty/nodexample
+:toc: left
+// end of header
+// Any lines beginning with `//` are comments and will not be included in the final output.
+
+== Technologies
+
+https://nodejs.org[Node.js] is a JavaScript runtime environment, effectively a way to run JavaScript without a browser, such as for creating a web application server that can serve HTTP clients.
+
+https://expressjs.com[Express] is a https://en.wikipedia.org/wiki/Web_framework[web framework] for Node.js, an approach that makes it easier to write web applications by providing a body of common code.
+
+Using a https://en.wikipedia.org/w/index.php?title=Container_(virtualization)[Container]-based approach that facilitates reproducible, isolated application deployment.
+
+With https://docker.com[Docker] and https://docs.docker.com/compose/[Docker Compose] we can deploy and manage container-based Node.js applications.
+
+== How to build and run this example application server
+
+Assuming you have a unix-like machine available such as linux or macos, this is all quite straightforward. I'm going to assume a linux machine running Ubuntu and that https://brew.sh[Homebrew] is available to keep the length of this to a minimum.
+
+=== Clone this repository
+
+```shell
+git clone https://github.com/dhutty/nodexample.git && cd nodexample
+```
+
+=== Install software
+
+`docker` and `docker-compose` can be installed either:
+
+* by the OS package manager: `sudo apt install docker docker-compose`
+* by Homebrew: `brew install docker docker-compose`
+
+=== Build & Run
+
+```shell
+docker build . --tag dhutty/node-web-app
+docker compose up --detach
+curl -i http://localhost:8080
+```
+
+which should give you output that looks somewhat like:
+
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 11
+ETag: W/"b-Ck1VqNd45QIvq3AZd8XYQLvEhtA"
+Date: Fri, 09 Dec 2022 00:09:57 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+Hello World
+```
+
+== Next steps and References
+
+* You might want to use the http://expressjs.com/en/starter/generator.html[Express generator] at least to get a feel for how Express applications are commonly organized.
+* Express provides https://github.com/expressjs/express/tree/master/examples[examples]; `params`, `error-pages`, `hello-world` and `web-service` are probably the first to look at for many use cases.
+* https://nodejs.org/en/docs/guides/
+* https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md
+
+
+
+
